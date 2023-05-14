@@ -5,6 +5,7 @@
 #include "Keyboard.h"
 #include "HDD.h"
 #include <iostream>
+#include "HasButtons.h"
 int main()
 {
 	std::vector<ComputerParts*> components;
@@ -19,11 +20,29 @@ int main()
 	components.push_back(&m1);
 	components.push_back(&h1);
 
+	std::vector<Keyboard*> kbs;
+	std::vector<HasButtons*> buttonOnly;
+
 	for (int i = 0; i < components.size(); i++)
 	{
-		components[i]->afisare();
+		if (dynamic_cast<Keyboard*>(components[i]) != nullptr)
+		{
+			kbs.push_back(dynamic_cast<Keyboard*>(components[i]));
+			//components[i]->afisare();
+		}
+		if (dynamic_cast<HasButtons*>(components[i]) != nullptr)
+		{
+			buttonOnly.push_back(dynamic_cast<HasButtons*>(components[i]));
+			//components[i]->afisare();
+		}
 	}
 
-	delete cp2;
-	std::cin.get();
+	for (int i = 0; i < buttonOnly.size(); i++)
+	{
+		buttonOnly[i]->afisare();
+	}
+
+
+	//delete cp2;
+	//std::cin.get();
 }
